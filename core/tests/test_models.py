@@ -33,7 +33,7 @@ class ModelTests(TestCase):
 
     def test_create_new_superuser(self):
         user = get_user_model().objects.create_superuser(
-            'fimmigo@gmail.com', 
+            'fimmigo@carbon.com', 
             '12345678P'
             )
 
