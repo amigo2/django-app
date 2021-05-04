@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import  AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.conf import settings
+import datetime
 
 
 class UserManager(BaseUserManager):
@@ -36,5 +38,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+
+
+class Order(models.Model):
+    name = models.CharField(max_length=255)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    date = models.DateField(default=datetime.date.today)
+    amount = models.IntegerField()
+    
+    def __str__(self):
+        return self.name
+
 
 
