@@ -10,3 +10,7 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields= ('id', 'name', 'date', 'amount')
         read_only_fields = ('id',)
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+
+    order = OrderSerializer(many=True, read_only=True)

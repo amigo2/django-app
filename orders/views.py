@@ -8,7 +8,8 @@ from orders import serializers
 
 class OrderViewSet(viewsets.GenericViewSet, 
                     mixins.ListModelMixin,
-                    mixins.CreateModelMixin):
+                    mixins.CreateModelMixin,
+                    mixins.UpdateModelMixin):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     queryset = Order.objects.all()
@@ -20,3 +21,9 @@ class OrderViewSet(viewsets.GenericViewSet,
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return serializers.OrderDetailSerializer
+            
+        return self.serializer_class
